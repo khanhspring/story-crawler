@@ -25,10 +25,6 @@ jobs:
       uses: gradle/gradle-build-action@v2
     - name: Run build with Gradle Wrapper
       run: ./gradlew build
-    - uses: actions/upload-artifact@v3
-      with:
-        name: Package
-        path: build/libs
     - name: Upload jar file
       uses: appleboy/scp-action@master
       with:
@@ -38,3 +34,15 @@ jobs:
         port: 22
         source: build/libs/*.jar
         target: "/app/be/story-crawler.new.jar"
+    - name: Start Service
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.API_IP_ADDRESS }}
+        username: ${{ secrets.API_USERNAME }}
+        key: ${{ secrets.AWS_SSH_KEY }}
+        port: 22
+        script: |
+          systemctl stop storycrawler.service
+          mv /app/be/story-crawler.jar /app/be/backup/story-crawler-$(date "+%Y%m%d%H%M%S").jar
+          mv /app/be/story-crawler.new.jar /app/be/story-crawler.jar
+          systemctl start storycrawler.service

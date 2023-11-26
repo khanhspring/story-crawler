@@ -1,0 +1,16 @@
+[Unit]
+Description=Story crawler service
+Requires=network.target remote-fs.target
+After=network.target remote-fs.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/java -jar /app/be/story-crawler.jar
+Restart=on-failure
+RestartSec=30
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=storycrawler
+
+[Install]
+WantedBy=multi-user.target
