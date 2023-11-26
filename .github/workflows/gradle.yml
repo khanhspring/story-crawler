@@ -37,9 +37,9 @@ jobs:
     - name: Start Service
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.API_IP_ADDRESS }}
-        username: ${{ secrets.API_USERNAME }}
-        key: ${{ secrets.AWS_SSH_KEY }}
+        host: ${{ secrets.SERVER_IP_ADDRESS }}
+        username: ${{ secrets.SERVER_USERNAME }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
         port: 22
         script: |
           systemctl stop storycrawler.service
