@@ -1,0 +1,15 @@
+version: '3.5'
+
+services:
+  formlaez-nginx:
+    image: formlaez-nginx
+    build:
+      context: nginx
+    ports:
+      - 80:80
+    networks:
+      - story-spider-net
+
+networks:
+  story-spider-net:
+    external: true

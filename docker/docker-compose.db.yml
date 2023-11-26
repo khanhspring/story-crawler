@@ -1,0 +1,21 @@
+version: "3.3"
+
+services:
+  postgresql:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: fS4FR4s0M5J&HcB1j0P%
+    volumes:
+      - story_spider_service_postgresql_volume:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - story-spider-net
+
+volumes:
+  story_spider_service_postgresql_volume:
+
+networks:
+  story-spider-net:
+    external: true

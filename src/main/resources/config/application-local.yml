@@ -1,0 +1,79 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/story_library
+    username: postgres
+    password: postgres
+    hikari:
+      connection-init-sql: SET TIME ZONE 'UTC'
+      maximum-pool-size: 20
+
+app:
+  configs:
+    storiesPageLimit: 5
+
+  web-driver:
+    pool:
+      storyListing:
+        maxSize: 1
+        headless: false
+        remoteUrl: http://207.148.78.135:4444/wd/hub
+      storyDetail:
+        maxSize: 3
+        headless: false
+        remoteUrl: http://207.148.78.135:4444/wd/hub
+
+  jsoup-executor:
+    pool:
+      storyListing:
+        maxSize: 1
+      storyDetail:
+        maxSize: 2
+
+  schedules:
+    jobs-creation:
+      stories-crawling:
+        # 4am and 4pm every day
+        cron: 0 0 */4 * * ?
+        disabled: true
+      story-crawling:
+        # every hour of every day
+        cron: 0 0 * * * ?
+        disabled: true
+      chapters-crawling:
+        # every 10 minutes
+        cron: 0 */3 * * * ?
+        disabled: true
+
+    jobs-bootstrap:
+      stories-crawling:
+        # every 5 minutes
+        cron: 0 2/5 * * * ?
+        disabled: true
+      story-crawling:
+        # every 1 minutes
+        cron: 0 */1 * * * ?
+        disabled: true
+      chapters-crawling:
+        # every 2 minutes
+        cron: 0 0/2 * * * ?
+        disabled: true
+
+  basic-auth:
+    users:
+      - username: Admin
+        # Admin@12345677
+        password: "$2a$10$tLrYxE7PjTpc5vESWu1SxefNuQhCgvm.iuNsGMsQhtg3i6rfzMwri"
+        roles: "Admin"
+
+  metruyencv:
+    accounts:
+      - username: xuankhanhyb@gmail.com
+        password: Xuankhanh93a@
+      - username: quangkhoiii01@gmail.com
+        password: 1234567890
+
+  bunny-net:
+    base-url: https://sg.storage.bunnycdn.com
+    api-key: 92f5730b-9400-47e2-bb1dfb8d5f81-5238-4c65
+    storage-zone-name: story-library-dev
+    story-thumbnail-folder: thumbnails

@@ -1,0 +1,30 @@
+version: "3.3"
+
+services:
+
+  selenium:
+    image: selenium/standalone-chrome:latest
+    ports:
+      - "5900:5900"
+      - "4444:4444"
+    privileged: true
+    shm_size: 4g
+    environment:
+      - SE_NODE_MAX_SESSIONS=5
+    networks:
+      - story-spider-net
+
+  story-spider-service:
+    image: story-spider-service
+    build:
+      context: .
+    environment:
+      ACTIVE_PROFILE: prod
+    ports:
+      - "8080:8080"
+    networks:
+      - story-spider-net
+
+networks:
+  story-spider-net:
+    external: true
