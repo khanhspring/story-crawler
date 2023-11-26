@@ -29,3 +29,12 @@ jobs:
       with:
         name: Package
         path: build/libs
+    - name: Upload jar file
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.SERVER_IP_ADDRESS }}
+        username: ${{ secrets.SERVER_USERNAME }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        port: 22
+        source: build/libs/*.jar
+        target: "/app/be/story-crawler.new.jar"
