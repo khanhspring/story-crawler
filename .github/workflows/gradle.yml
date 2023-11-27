@@ -33,7 +33,7 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         port: 22
         source: build/libs/*.jar
-        target: "/app/be/story-crawler.new.jar"
+        target: "/app/be/new"
     - name: Restart Service
       uses: appleboy/ssh-action@master
       with:
@@ -44,5 +44,6 @@ jobs:
         script: |
           systemctl stop storycrawler.service
           mv /app/be/story-crawler.jar /app/be/backup/story-crawler-$(date "+%Y%m%d%H%M%S").jar
-          mv /app/be/story-crawler.new.jar /app/be/story-crawler.jar
+          mv /app/be/new/*.jar /app/be/story-crawler.jar
+          rm -rf /app/be/new/*.jar
           systemctl start storycrawler.service
