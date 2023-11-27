@@ -44,6 +44,6 @@ jobs:
         script: |
           systemctl stop storycrawler.service
           mv /app/be/story-crawler.jar /app/be/backup/story-crawler-$(date "+%Y%m%d%H%M%S").jar
-          mv /app/be/new/*.jar /app/be/story-crawler.jar
-          rm -rf /app/be/new/*.jar
+          mv /app/be/new/build/libs/*.jar /app/be/story-crawler.jar
+          rm -rf /app/be/new/build
           systemctl start storycrawler.service
