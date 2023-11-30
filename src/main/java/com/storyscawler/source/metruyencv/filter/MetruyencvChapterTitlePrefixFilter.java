@@ -7,11 +7,13 @@ import org.springframework.util.ObjectUtils;
 @Component
 public class MetruyencvChapterTitlePrefixFilter implements MetruyencvChapterTitleFilter {
 
+    private static final String TITLE_PREFIX_REGEX = "Chương ([0-9]+)(\s)*([:|.]?)";
     @Override
     public String filter(String content) {
         if (ObjectUtils.isEmpty(content)) {
             return content;
         }
-        return StringUtils.trim(content);
+        var nonPrefixContent = content.replaceFirst(TITLE_PREFIX_REGEX, "");
+        return StringUtils.trim(nonPrefixContent);
     }
 }
