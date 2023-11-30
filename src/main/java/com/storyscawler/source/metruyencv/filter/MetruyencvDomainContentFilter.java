@@ -5,7 +5,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
-@Order()
+@Order(99)
 @Component
 public class MetruyencvDomainContentFilter implements MetruyencvContentFilter {
 

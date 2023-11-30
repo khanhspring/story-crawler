@@ -1,0 +1,1 @@
+ALTER TABLE tag ADD COLUMN category varchar(100) NULL DEFAULT NULL;

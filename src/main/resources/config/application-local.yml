@@ -16,11 +16,11 @@ app:
       storyListing:
         maxSize: 1
         headless: false
-        remoteUrl: http://207.148.78.135:4444/wd/hub
+        remoteUrl: http://localhost:4444/wd/hub
       storyDetail:
         maxSize: 3
         headless: false
-        remoteUrl: http://207.148.78.135:4444/wd/hub
+        remoteUrl: http://localhost:4444/wd/hub
 
   jsoup-executor:
     pool:

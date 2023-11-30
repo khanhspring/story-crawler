@@ -6,7 +6,6 @@ import com.storyscawler.infrastructure.exception.PoolEmptyException;
 import com.storyscawler.infrastructure.model.entity.JpaChapter;
 import com.storyscawler.infrastructure.model.entity.JpaStory;
 import com.storyscawler.infrastructure.model.entity.crawl.JpaCrawlChaptersJob;
-import com.storyscawler.infrastructure.model.enumeration.StoryStatus;
 import com.storyscawler.infrastructure.repository.JpaChapterRepository;
 import com.storyscawler.infrastructure.repository.JpaStoryRepository;
 import com.storyscawler.service.crawlchaptersjob.CrawlChaptersJobService;
@@ -103,9 +102,6 @@ public class CrawlChaptersJobExecutorImpl implements CrawlChaptersJobExecutor {
     public void onCompleted(Long storyId) {
         var story = jpaStoryRepository.findById(storyId)
                 .orElseThrow();
-        if (story.getStatus() == StoryStatus.Draft) {
-            story.setStatus(StoryStatus.Active);
-        }
         int totalChapter = jpaChapterRepository.countAllByStoryId(storyId);
         story.setTotalChapter(totalChapter);
         jpaStoryRepository.save(story);

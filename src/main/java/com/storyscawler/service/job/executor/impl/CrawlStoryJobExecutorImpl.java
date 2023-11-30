@@ -3,6 +3,7 @@ package com.storyscawler.service.job.executor.impl;
 import com.storyscawler.core.model.StoryInfoResult;
 import com.storyscawler.infrastructure.exception.PoolEmptyException;
 import com.storyscawler.infrastructure.model.entity.crawl.JpaCrawlStoryJob;
+import com.storyscawler.infrastructure.model.enumeration.StoryStatus;
 import com.storyscawler.infrastructure.repository.JpaStoryRepository;
 import com.storyscawler.infrastructure.util.FileUtils;
 import com.storyscawler.infrastructure.util.ImageUtils;
@@ -87,6 +88,10 @@ public class CrawlStoryJobExecutorImpl implements CrawlStoryJobExecutor {
                     .map(t -> tagService.findByTitleOrElseCreate(t.getName()))
                     .collect(Collectors.toSet());
             story.setTags(tags);
+        }
+
+        if (story.getStatus() == StoryStatus.Draft) {
+            story.setStatus(StoryStatus.Active);
         }
 
         jpaStoryRepository.save(story);
