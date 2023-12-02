@@ -35,6 +35,7 @@ public class JpaStory extends JpaBaseEntity {
     private String externalUrl;
 
     private int position;
+    private Integer recommended;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
