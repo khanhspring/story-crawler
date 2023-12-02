@@ -70,9 +70,9 @@ databaseChangeLog:
             splitStatements: true
             path: db/changelog/scripts/0_0_1__008__alter_table_story_tag_story_genre.sql
   - changeSet:
-      id: 0_0_1__009__alter_table_story.sql
+      id: 0_0_1__009__alter_table_story
       author: khanhspring
       changes:
         - sqlFile:
             splitStatements: true
-            path: db/changelog/scripts/0_0_1__009__alter_table_story.sql.sql
+            path: db/changelog/scripts/0_0_1__009__alter_table_story.sql
