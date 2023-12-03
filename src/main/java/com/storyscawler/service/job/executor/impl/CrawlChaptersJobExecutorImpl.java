@@ -91,6 +91,7 @@ public class CrawlChaptersJobExecutorImpl implements CrawlChaptersJobExecutor {
                 .externalUrl(result.getUrl())
                 .build();
         jpaChapterRepository.save(chapter);
+        onEachCompleted(story.getId());
     }
 
     public void updateChapter(ChapterResult result, JpaChapter chapter) {
@@ -100,6 +101,14 @@ public class CrawlChaptersJobExecutorImpl implements CrawlChaptersJobExecutor {
     }
 
     public void onCompleted(Long storyId) {
+        var story = jpaStoryRepository.findById(storyId)
+                .orElseThrow();
+        int totalChapter = jpaChapterRepository.countAllByStoryId(storyId);
+        story.setTotalChapter(totalChapter);
+        jpaStoryRepository.save(story);
+    }
+
+    public void onEachCompleted(Long storyId) {
         var story = jpaStoryRepository.findById(storyId)
                 .orElseThrow();
         int totalChapter = jpaChapterRepository.countAllByStoryId(storyId);
