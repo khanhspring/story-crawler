@@ -6,6 +6,7 @@ import com.storyscawler.core.selenium.SeleniumElementLocatorConverter;
 import com.storyscawler.core.selenium.SeleniumExtractor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -23,20 +24,31 @@ public class SeleniumExtractDataAction implements CrawlerAction<SeleniumActionCo
         if (Objects.nonNull(elementExtractor.getElementLocator())) {
             var by = seleniumElementLocatorConverter.convert(elementExtractor.getElementLocator());
 
-            var waitForWebElement = new WebDriverWait(webDriver, elementExtractor.getTimeout());
-            if (elementExtractor.isIgnoreException()) {
-                waitForWebElement.ignoreAll(List.of(NoSuchElementException.class, TimeoutException.class));
+            WebElement webElement;
+            if (!elementExtractor.isIgnoreWaiting()) {
+                var waitForWebElement = new WebDriverWait(webDriver, elementExtractor.getTimeout());
+                if (elementExtractor.isIgnoreException()) {
+                    waitForWebElement.ignoreAll(List.of(NoSuchElementException.class, TimeoutException.class));
+                }
+                webElement = waitForWebElement.until(ExpectedConditions.visibilityOfElementLocated(by));
+            } else {
+                webElement = webDriver.findElement(by);
             }
-            var webElement = waitForWebElement.until(ExpectedConditions.visibilityOfElementLocated(by));
             return seleniumExtractor.extract(webElement, elementExtractor.getExtractors());
         }
 
         var by = seleniumElementLocatorConverter.convert(elementExtractor.getElementsLocator());
-        var waitForWebElements = new WebDriverWait(webDriver, elementExtractor.getTimeout());
-        if (elementExtractor.isIgnoreException()) {
-            waitForWebElements.ignoreAll(List.of(NoSuchElementException.class, TimeoutException.class));
+
+        List<WebElement> webElements;
+        if (!elementExtractor.isIgnoreWaiting()) {
+            var waitForWebElements = new WebDriverWait(webDriver, elementExtractor.getTimeout());
+            if (elementExtractor.isIgnoreException()) {
+                waitForWebElements.ignoreAll(List.of(NoSuchElementException.class, TimeoutException.class));
+            }
+            webElements = waitForWebElements.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+        } else {
+            webElements = webDriver.findElements(by);
         }
-        var webElements = waitForWebElements.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
         return seleniumExtractor.extract(webElements, elementExtractor.getExtractors());
     }
 }

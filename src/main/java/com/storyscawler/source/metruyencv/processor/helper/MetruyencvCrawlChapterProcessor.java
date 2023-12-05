@@ -52,6 +52,12 @@ public class MetruyencvCrawlChapterProcessor {
                 .text("chapter_title");
         var title = executor.extractSingleData(titleExtractor);
 
+        var lockExtractor = ElementExtractor
+                .elements(ElementLocator.cssSelector(".unlock-chapter__title"))
+                .ignoreWaiting()
+                .text("unlock_chapter_title");
+        var lockTitle = executor.extractSingleData(lockExtractor);
+
         var contentExtractor = ElementExtractor
                 .element(ElementLocator.cssSelector("#article"))
                 .text("chapter_content");
@@ -63,13 +69,14 @@ public class MetruyencvCrawlChapterProcessor {
         var btnNextData = executor.extractSingleData(btnNextExtractor);
 
         boolean hasNext = true;
-        if (StringUtils.trimToEmpty(btnNextData.get("href")).endsWith("/chuong-cuoi")) {
+        var isLocked = !lockTitle.isEmpty();
+        if (StringUtils.trimToEmpty(btnNextData.get("href")).endsWith("/chuong-cuoi") || isLocked) {
             hasNext = false;
         }
 
         var result = Map.of(
                 "chapter_content", content.get("chapter_content"),
-                "chapter_title", title.get("chapter_title"),
+                "chapter_title", !isLocked ? title.get("chapter_title") : "", // to ignore this chapter
                 "chapter_url", url
 
         );

@@ -28,7 +28,7 @@ public class MetruyencvTestController {
     @GetMapping("crawl-chapters")
     public void crawlChapters(@RequestParam String storyUrl) {
         var option = CrawlChaptersOption.builder()
-                .startIndex(156)
+                .startIndex(6407)
                 .startUrl(null)
                 .storyUrl(storyUrl)
                 .build();

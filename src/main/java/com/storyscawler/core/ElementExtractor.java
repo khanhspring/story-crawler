@@ -5,6 +5,7 @@ import com.storyscawler.core.extractor.Extractor;
 import com.storyscawler.core.extractor.HtmlExtractor;
 import com.storyscawler.core.extractor.TextExtractor;
 import com.storyscawler.core.selector.ElementLocator;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +21,8 @@ public class ElementExtractor {
     private ElementLocator elementLocator;
     private ElementLocator elementsLocator;
     private boolean ignoreException;
+
+    private boolean ignoreWaiting;
     private Duration timeout = Duration.ofSeconds(30);
 
     public static ElementExtractor element(ElementLocator elementLocator) {
@@ -36,6 +39,11 @@ public class ElementExtractor {
 
     public ElementExtractor ignoreException() {
         this.ignoreException = true;
+        return this;
+    }
+
+    public ElementExtractor ignoreWaiting() {
+        this.ignoreWaiting = true;
         return this;
     }
 
