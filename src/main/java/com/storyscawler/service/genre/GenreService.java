@@ -4,4 +4,5 @@ import com.storyscawler.infrastructure.model.entity.JpaGenre;
 
 public interface GenreService {
     JpaGenre findByTitleOrElseCreate(String title);
+    JpaGenre findByTitleOrElseCreate(String title, boolean isSubGenre);
 }

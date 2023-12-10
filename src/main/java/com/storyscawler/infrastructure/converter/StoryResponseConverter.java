@@ -15,7 +15,6 @@ public class StoryResponseConverter implements Converter<JpaStory, StoryResponse
 
     private final AuthorResponseConverter authorResponseConverter;
     private final GenreResponseConverter genreResponseConverter;
-    private final TagResponseConverter tagResponseConverter;
 
     @Nullable
     @Override
@@ -35,7 +34,6 @@ public class StoryResponseConverter implements Converter<JpaStory, StoryResponse
                 .completed(source.isCompleted())
                 .author(authorResponseConverter.convert(source.getAuthor()))
                 .genres(genreResponseConverter.convert(source.getGenres()))
-                .tags(tagResponseConverter.convert(source.getTags()))
                 .build();
     }
 }

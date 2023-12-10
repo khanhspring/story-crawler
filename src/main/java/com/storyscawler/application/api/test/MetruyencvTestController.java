@@ -8,7 +8,6 @@ import com.storyscawler.source.metruyencv.processor.MetruyencvCrawlStoriesProces
 import com.storyscawler.source.metruyencv.processor.MetruyencvCrawlStoryInfoProcessor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,11 +25,11 @@ public class MetruyencvTestController {
     private final MetruyencvCrawlStoriesProcessor metruyencvCrawlStoriesProcessor;
 
     @GetMapping("crawl-chapters")
-    public void crawlChapters(@RequestParam String storyUrl) {
+    public void crawlChapters(@RequestParam String url, @RequestParam int startIndex) {
         var option = CrawlChaptersOption.builder()
-                .startIndex(6407)
+                .startIndex(startIndex)
                 .startUrl(null)
-                .storyUrl(storyUrl)
+                .storyUrl(url)
                 .build();
         metruyencvCrawlChaptersProcessor.process(option, (ChapterResult result) -> {
             log.info("Chapter number: {}", result.getChapterNumber());
@@ -45,7 +44,7 @@ public class MetruyencvTestController {
         metruyencvCrawlStoryInfoProcessor.process(url, (StoryInfoResult r) -> {
             log.info("AuthorName: {}", r.getAuthorName());
             log.info("Summary: {}", r.getSummary());
-            log.info("Tag: {}", r.getTags());
+            log.info("Tag: {}", r.getSubGenres());
             log.info("========================");
         });
     }

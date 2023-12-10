@@ -12,28 +12,38 @@ public class NormalizeStoryContentAction implements CrawlerAction<SeleniumAction
     public Void execute(SeleniumActionContext context, ActionInput input) {
         var script = """
                 CanvasRenderingContext2D.prototype.__oldFillText = CanvasRenderingContext2D.prototype.fillText;
-                let currentPIndex = 1;
                 const createP = (order, text) => {
-                    if (text && text.trim().length > 0) {
-                        const p = document.getElementById(`canvas-p-${currentPIndex}`);
-                        if (!!p) {
-                            p.textContent += ` ${text}`;
-                        } else {
-                            let p = document.createElement('p');
-                            p.innerHTML = text;
-                            p.style.order = order;
-                            p.style.color = 'red';
-                            p.className = `canvas-extracted-result`;
-                            p.id = `canvas-p-${currentPIndex}`;
-                            document.getElementById('article').append(p);
-                        }
-                    } else {
+                    let div = document.getElementById(`canvas-div-${order}`);
+                    if (!div) {
+                        div = document.createElement('div');
+                        div.style.order = order;
+                        div.id = `canvas-div-${order}`;
+                        document.getElementById('article').appendChild(div);
+                                
                         let p = document.createElement('p');
-                        p.innerHTML = '<br/>';
                         p.style.order = order;
+                        p.style.color = 'red';
                         p.className = `canvas-extracted-result`;
-                        document.getElementById('article').append(p);
-                        currentPIndex++;
+                        p.id = `canvas-p-${order}`;
+                        div.appendChild(p);
+                    }
+                                
+                    if (text && text.trim().length > 0) {
+                        let lastP = div.lastElementChild;
+                        lastP.textContent += ` ${text}`;
+                    } else {
+                        let pNewLine = document.createElement('p');
+                        pNewLine.innerHTML = '<br/>';
+                        pNewLine.style.order = order;
+                        pNewLine.className = `canvas-extracted-result`;
+                        div.appendChild(pNewLine);
+                                
+                        let p = document.createElement('p');
+                        p.style.order = order;
+                        p.style.color = 'red';
+                        p.className = `canvas-extracted-result`;
+                        p.id = `canvas-p-${order}`;
+                        div.appendChild(p);
                     }
                 }
                 CanvasRenderingContext2D.prototype.fillText = function(text, x, y, z) {

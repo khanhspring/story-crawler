@@ -76,3 +76,17 @@ databaseChangeLog:
         - sqlFile:
             splitStatements: true
             path: db/changelog/scripts/0_0_1__009__alter_table_story.sql
+  - changeSet:
+      id: 0_0_1__0010__alter_table_genre
+      author: khanhspring
+      changes:
+        - sqlFile:
+            splitStatements: true
+            path: db/changelog/scripts/0_0_1__0010__alter_table_genre.sql
+  - changeSet:
+      id: 0_0_1__0011__drop_table_tag
+      author: khanhspring
+      changes:
+        - sqlFile:
+            splitStatements: true
+            path: db/changelog/scripts/0_0_1__0011__drop_table_tag.sql

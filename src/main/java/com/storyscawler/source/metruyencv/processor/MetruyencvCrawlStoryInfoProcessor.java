@@ -3,7 +3,7 @@ package com.storyscawler.source.metruyencv.processor;
 import com.storyscawler.core.ElementExtractor;
 import com.storyscawler.core.model.StoryInfoResult;
 import com.storyscawler.core.model.StoryInfoResult.StoryGenreResult;
-import com.storyscawler.core.model.StoryInfoResult.StoryTagResult;
+import com.storyscawler.core.model.StoryInfoResult.StorySubGenreResult;
 import com.storyscawler.core.processor.CrawlStoryInfoProcessor;
 import com.storyscawler.core.selector.ElementLocator;
 import com.storyscawler.core.selenium.action.SeleniumActionContext;
@@ -90,7 +90,7 @@ public class MetruyencvCrawlStoryInfoProcessor implements CrawlStoryInfoProcesso
                     .url(genre.get("genre_url"))
                     .build();
 
-            List<StoryTagResult> tagResults = new ArrayList<>();
+            List<StorySubGenreResult> tagResults = new ArrayList<>();
             var infoCount = executor.count(ElementLocator.xpath("//*[@id=\"app\"]/main//ul[1]/li"));
             if (infoCount > 3) {
                 var tagsExtractor = ElementExtractor
@@ -99,7 +99,7 @@ public class MetruyencvCrawlStoryInfoProcessor implements CrawlStoryInfoProcesso
                         .attr("tag_url", "href");
                 var tags = executor.extractData(tagsExtractor);
                 for (var tag : tags) {
-                    var tagResult = StoryTagResult.builder()
+                    var tagResult = StorySubGenreResult.builder()
                             .name(tag.get("tag_name"))
                             .url(tag.get("tag_url"))
                             .build();
@@ -120,7 +120,7 @@ public class MetruyencvCrawlStoryInfoProcessor implements CrawlStoryInfoProcesso
                     .summary(summaryCleaned)
                     .title(title.get("title"))
                     .genres(List.of(genreResult))
-                    .tags(tagResults)
+                    .subGenres(tagResults)
                     .rating(ratingNum)
                     .totalRating(totalRatingNum)
                     .build();

@@ -2,6 +2,7 @@ package com.storyscawler.service.job.executor.impl;
 
 import com.storyscawler.core.model.StoryInfoResult;
 import com.storyscawler.infrastructure.exception.PoolEmptyException;
+import com.storyscawler.infrastructure.model.entity.JpaGenre;
 import com.storyscawler.infrastructure.model.entity.crawl.JpaCrawlStoryJob;
 import com.storyscawler.infrastructure.model.enumeration.StoryStatus;
 import com.storyscawler.infrastructure.repository.JpaStoryRepository;
@@ -13,13 +14,13 @@ import com.storyscawler.service.job.executor.CrawlStoryJobExecutor;
 import com.storyscawler.service.genre.GenreService;
 import com.storyscawler.service.processor.CrawlStoryInfoProcessorFactory;
 import com.storyscawler.service.storage.StorageService;
-import com.storyscawler.service.tag.TagService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -33,7 +34,6 @@ public class CrawlStoryJobExecutorImpl implements CrawlStoryJobExecutor {
     private final CrawlStoryJobService crawlStoryJobService;
     private final AuthorService authorService;
     private final GenreService genreService;
-    private final TagService tagService;
     private final StorageService storageService;
 
     @Async
@@ -76,19 +76,25 @@ public class CrawlStoryJobExecutorImpl implements CrawlStoryJobExecutor {
         var thumbnailImg = downloadThumbnailAndUpload(result.getThumbnailUrl(), story.getSlug());
         story.setThumbnailUrl(thumbnailImg);
 
+        var genres = new HashSet<JpaGenre>();
         if (!ObjectUtils.isEmpty(result.getGenres())) {
-            var genres = result.getGenres().stream()
+            var newGenres = result.getGenres()
+                    .stream()
+                    .filter(g -> !ObjectUtils.isEmpty(g.getName()))
                     .map(g -> genreService.findByTitleOrElseCreate(g.getName()))
                     .collect(Collectors.toSet());
-            story.setGenres(genres);
+            genres.addAll(newGenres);
         }
 
-        if (!ObjectUtils.isEmpty(result.getTags())) {
-            var tags = result.getTags().stream()
-                    .map(t -> tagService.findByTitleOrElseCreate(t.getName()))
+        if (!ObjectUtils.isEmpty(result.getSubGenres())) {
+            var newSubGenres = result.getSubGenres()
+                    .stream()
+                    .filter(g -> !ObjectUtils.isEmpty(g.getName()))
+                    .map(t -> genreService.findByTitleOrElseCreate(t.getName(), true))
                     .collect(Collectors.toSet());
-            story.setTags(tags);
+            genres.addAll(newSubGenres);
         }
+        story.setGenres(genres);
 
         if (story.getStatus() == StoryStatus.Draft) {
             story.setStatus(StoryStatus.Active);

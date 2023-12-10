@@ -48,8 +48,4 @@ public class JpaStory extends JpaBaseEntity {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "_story_genre", joinColumns = @JoinColumn(name = "story_id"), inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private Set<JpaGenre> genres;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "_story_tag", joinColumns = @JoinColumn(name = "story_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private Set<JpaTag> tags;
 }

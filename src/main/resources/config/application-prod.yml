@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/story_library
+    url: jdbc:postgresql://localhost:5432/story_library_v2
     username: storyyy
     password: "{K>U4KA1,16Fdn$"
     hikari:

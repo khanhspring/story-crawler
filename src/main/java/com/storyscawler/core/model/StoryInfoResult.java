@@ -18,7 +18,7 @@ public class StoryInfoResult {
     private String authorUrl;
     private boolean completed;
     private List<StoryGenreResult> genres;
-    private List<StoryTagResult> tags;
+    private List<StorySubGenreResult> subGenres;
     private BigDecimal rating;
     private Integer totalRating;
 
@@ -37,7 +37,7 @@ public class StoryInfoResult {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class StoryTagResult {
+    public static class StorySubGenreResult {
         private String name;
         private String url;
     }
