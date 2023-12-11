@@ -90,3 +90,10 @@ databaseChangeLog:
         - sqlFile:
             splitStatements: true
             path: db/changelog/scripts/0_0_1__0011__drop_table_tag.sql
+  - changeSet:
+      id: 0_0_1__0012__alter_table_chapter
+      author: khanhspring
+      changes:
+        - sqlFile:
+            splitStatements: true
+            path: db/changelog/scripts/0_0_1__0012__alter_table_chapter.sql

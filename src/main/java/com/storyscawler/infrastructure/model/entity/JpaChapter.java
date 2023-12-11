@@ -22,4 +22,6 @@ public class JpaChapter extends JpaBaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "story_id")
     private JpaStory story;
+
+    private Long sourceId;
 }

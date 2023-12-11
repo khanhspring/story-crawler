@@ -1,0 +1,1 @@
+ALTER TABLE chapter ADD COLUMN source_id bigint NULL DEFAULT NULL;

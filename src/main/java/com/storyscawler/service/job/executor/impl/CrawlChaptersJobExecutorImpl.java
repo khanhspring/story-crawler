@@ -89,6 +89,7 @@ public class CrawlChaptersJobExecutorImpl implements CrawlChaptersJobExecutor {
                 .title(result.getTitle())
                 .content(result.getContent())
                 .externalUrl(result.getUrl())
+                .sourceId(story.getSource().getId())
                 .build();
         jpaChapterRepository.save(chapter);
         onEachCompleted(story.getId());
