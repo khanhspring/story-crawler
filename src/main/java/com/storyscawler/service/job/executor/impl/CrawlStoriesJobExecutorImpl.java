@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RequiredArgsConstructor
 public class CrawlStoriesJobExecutorImpl implements CrawlStoriesJobExecutor {
 
-    private static final int MAX_DUPLICATED = 40;
+    private static final int MAX_DUPLICATED = 20;
     private static final int POSITION_DELTA = 1000;
 
     private final CrawlStoriesProcessorFactory processorFactory;
@@ -76,6 +76,7 @@ public class CrawlStoriesJobExecutorImpl implements CrawlStoriesJobExecutor {
                     return false;
                 }
             } else {
+                duplicatedCount.set(0);
                 addStory(storyResult, job.getSource(), slug, result.getPageNumber(), i++);
             }
         }
