@@ -21,13 +21,13 @@ public class CrawlStoryJobsBootstrapper {
 
     private final CrawlStoryJobExecutor jobExecutor;
     private final JpaCrawlStoryJobRepository jpaCrawlStoryJobRepository;
-    private static final Duration DELAY_BETWEEN_JOBS = Duration.ofSeconds(2);
+    private static final Duration DELAY_BETWEEN_JOBS = Duration.ofSeconds(1);
 
     @Transactional
     public void start() {
         log.info("Start executing crawl story jobs");
 
-        var page = PageRequest.of(0, 10);
+        var page = PageRequest.of(0, 20);
         var jobs = jpaCrawlStoryJobRepository.findAllByStatusOrderByPriorityDescCreatedDateAsc(Ready, page).getContent();
 
         if (ObjectUtils.isEmpty(jobs)) {
