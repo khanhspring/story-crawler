@@ -15,11 +15,11 @@ app:
     pool:
       storyListing:
         maxSize: 1
-        headless: false
+        headless: true
         remoteUrl: http://localhost:4444/wd/hub
       storyDetail:
         maxSize: 3
-        headless: false
+        headless: true
         remoteUrl: http://localhost:4444/wd/hub
 
   jsoup-executor:
@@ -27,36 +27,36 @@ app:
       storyListing:
         maxSize: 1
       storyDetail:
-        maxSize: 2
+        maxSize: 4
 
   schedules:
     jobs-creation:
       stories-crawling:
         # 4am and 4pm every day
         cron: 0 0 */4 * * ?
-        disabled: true
+        disabled: false
       story-crawling:
         # every hour of every day
         cron: 0 0 * * * ?
-        disabled: true
+        disabled: false
       chapters-crawling:
         # every 10 minutes
         cron: 0 */3 * * * ?
-        disabled: true
+        disabled: false
 
     jobs-bootstrap:
       stories-crawling:
         # every 5 minutes
         cron: 0 2/5 * * * ?
-        disabled: true
+        disabled: false
       story-crawling:
         # every 1 minutes
         cron: 0 */1 * * * ?
-        disabled: true
+        disabled: false
       chapters-crawling:
         # every 2 minutes
         cron: 0 0/2 * * * ?
-        disabled: true
+        disabled: false
 
   basic-auth:
     users:

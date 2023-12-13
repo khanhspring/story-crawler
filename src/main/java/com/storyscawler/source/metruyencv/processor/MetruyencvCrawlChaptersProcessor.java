@@ -44,7 +44,7 @@ public class MetruyencvCrawlChaptersProcessor implements CrawlChaptersProcessor 
             var pageNotFoundCount = new AtomicInteger(0);
             do {
                 var url = baseUrl.replace("{chapterNumber}", chapterNumber + "");
-                log.info("Crawling chapter [{}]", url);
+                log.info("[Metruyencv] Crawling chapter [{}]", url);
                 try {
                     var pageResult = metruyencvCrawlChapterProcessor.process(context, url);
                     var canNext = doNext(doNext, pageResult, chapterNumber);

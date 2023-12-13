@@ -7,7 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum SourceCode {
     Metruyencv("metruyencv.com"),
-    Truyenfull("truyenfull.vn");
+    Truyenfull("truyenfull.vn"),
+    Trumtruyen("trumtruyen.vn");
 
     private final String code;
 }

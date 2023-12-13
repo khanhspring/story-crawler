@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/story_library_v2
+    url: jdbc:postgresql://localhost:5432/story_library
     username: postgres
     password: postgres
     hikari:

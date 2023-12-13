@@ -97,3 +97,10 @@ databaseChangeLog:
         - sqlFile:
             splitStatements: true
             path: db/changelog/scripts/0_0_1__0012__alter_table_chapter.sql
+  - changeSet:
+      id: 0_0_1__003__data__init-trumtruyen-source
+      author: khanhspring
+      changes:
+        - sqlFile:
+            splitStatements: true
+            path: db/changelog/data/0_0_1__003__data__init-trumtruyen-source.sql

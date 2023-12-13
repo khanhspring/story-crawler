@@ -27,7 +27,7 @@ app:
       storyListing:
         maxSize: 1
       storyDetail:
-        maxSize: 2
+        maxSize: 4
 
   schedules:
     jobs-creation:
