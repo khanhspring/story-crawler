@@ -75,13 +75,13 @@ public class MetruyencvCrawlStoryInfoProcessor implements CrawlStoryInfoProcesso
             var totalRating = executor.extractSingleData(totalRatingExtractor);
 
             var genreExtractor = ElementExtractor
-                    .element(ElementLocator.xpath("//*[@id=\"app\"]/main//ul[1]/li[3]/a"))
+                    .element(ElementLocator.xpath("//*[@id=\"app\"]/main//div[contains(@class, \"media-body\")]//ul[1]/li[3]/a"))
                     .text("genre_name")
                     .attr("genre_url", "href");
             var genre = executor.extractSingleData(genreExtractor);
 
             var statusExtractor = ElementExtractor
-                    .element(ElementLocator.xpath("//*[@id=\"app\"]/main//ul[1]/li[2]"))
+                    .element(ElementLocator.xpath("//*[@id=\"app\"]/main//div[contains(@class, \"media-body\")]//ul[1]/li[2]"))
                     .text("status_name");
             var status = executor.extractSingleData(statusExtractor);
 
@@ -91,10 +91,10 @@ public class MetruyencvCrawlStoryInfoProcessor implements CrawlStoryInfoProcesso
                     .build();
 
             List<StorySubGenreResult> tagResults = new ArrayList<>();
-            var infoCount = executor.count(ElementLocator.xpath("//*[@id=\"app\"]/main//ul[1]/li"));
+            var infoCount = executor.count(ElementLocator.xpath("//*[@id=\"app\"]/main//div[contains(@class, \"media-body\")]//ul[1]/li"));
             if (infoCount > 3) {
                 var tagsExtractor = ElementExtractor
-                        .elements(ElementLocator.xpath("//*[@id=\"app\"]/main//ul[1]/li[position()>3]/a"))
+                        .elements(ElementLocator.xpath("//*[@id=\"app\"]/main//div[contains(@class, \"media-body\")]//ul[1]/li[position()>3]/a"))
                         .text("tag_name")
                         .attr("tag_url", "href");
                 var tags = executor.extractData(tagsExtractor);
