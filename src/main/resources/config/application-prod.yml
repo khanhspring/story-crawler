@@ -14,7 +14,7 @@ app:
   web-driver:
     pool:
       storyListing:
-        maxSize: 1
+        maxSize: 2
         headless: true
         remoteUrl: http://localhost:4444/wd/hub
       storyDetail:
@@ -25,7 +25,7 @@ app:
   jsoup-executor:
     pool:
       storyListing:
-        maxSize: 1
+        maxSize: 2
       storyDetail:
         maxSize: 4
 

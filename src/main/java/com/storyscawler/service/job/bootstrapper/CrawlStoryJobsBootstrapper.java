@@ -36,7 +36,7 @@ public class CrawlStoryJobsBootstrapper {
         }
 
         for (var job : jobs) {
-            jobExecutor.execute(job);
+            jobExecutor.executeSync(job);
             DelayUtils.delay(DELAY_BETWEEN_JOBS);
         }
     }

@@ -34,29 +34,29 @@ app:
       stories-crawling:
         # 4am and 4pm every day
         cron: 0 0 */4 * * ?
-        disabled: false
+        disabled: true
       story-crawling:
         # every hour of every day
         cron: 0 0 * * * ?
-        disabled: false
+        disabled: true
       chapters-crawling:
         # every 10 minutes
         cron: 0 */3 * * * ?
-        disabled: false
+        disabled: true
 
     jobs-bootstrap:
       stories-crawling:
         # every 5 minutes
         cron: 0 2/5 * * * ?
-        disabled: false
+        disabled: true
       story-crawling:
         # every 1 minutes
         cron: 0 */1 * * * ?
-        disabled: false
+        disabled: true
       chapters-crawling:
         # every 2 minutes
         cron: 0 0/2 * * * ?
-        disabled: false
+        disabled: true
 
   basic-auth:
     users:

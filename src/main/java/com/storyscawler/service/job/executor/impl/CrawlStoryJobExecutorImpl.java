@@ -38,6 +38,10 @@ public class CrawlStoryJobExecutorImpl implements CrawlStoryJobExecutor {
 
     @Async
     public void execute(JpaCrawlStoryJob job) {
+        executeSync(job);
+    }
+
+    public void executeSync(JpaCrawlStoryJob job) {
         try {
             log.info("Start crawling story job id [{}] for story [{}]", job.getId(), job.getStory().getSlug());
             crawlStoryJobService.start(job.getId());
