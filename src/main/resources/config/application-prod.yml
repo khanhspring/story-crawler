@@ -14,11 +14,11 @@ app:
   web-driver:
     pool:
       storyListing:
-        maxSize: 2
+        maxSize: 1
         headless: true
         remoteUrl: http://localhost:4444/wd/hub
       storyDetail:
-        maxSize: 3
+        maxSize: 4
         headless: true
         remoteUrl: http://localhost:4444/wd/hub
 
