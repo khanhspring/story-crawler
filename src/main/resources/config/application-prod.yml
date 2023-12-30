@@ -18,7 +18,7 @@ app:
         headless: true
         remoteUrl: http://localhost:4444/wd/hub
       storyDetail:
-        maxSize: 4
+        maxSize: 6
         headless: true
         remoteUrl: http://localhost:4444/wd/hub
 
