@@ -21,7 +21,7 @@ public class CrawlChaptersJobsBootstrapper {
 
     private final CrawlChaptersJobExecutor jobExecutor;
     private final JpaCrawlChaptersJobRepository jpaCrawlChaptersJobRepository;
-    private static final Duration DELAY_BETWEEN_JOBS = Duration.ofSeconds(1);
+    private static final Duration DELAY_BETWEEN_JOBS = Duration.ofMillis(500);
 
     @Transactional
     public void start() {
