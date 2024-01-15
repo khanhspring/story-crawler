@@ -72,7 +72,9 @@ public class TrumtruyenCrawlStoryInfoProcessor implements CrawlStoryInfoProcesso
 
             var ratingExtractor = ElementExtractor
                     .element(ElementLocator.cssSelector(".rate .small em strong:first-child span"))
-                    .text("rating");
+                    .text("rating")
+                    .ignoreWaiting()
+                    .ignoreException();
             var rating = executor.extractSingleData(ratingExtractor);
 
             var totalRatingExtractor = ElementExtractor

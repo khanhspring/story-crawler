@@ -6,6 +6,7 @@ import com.storyscawler.core.jsoup.JsoupElementLocatorSelector;
 import com.storyscawler.core.jsoup.JsoupExtractor;
 import com.storyscawler.infrastructure.exception.ApplicationException;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -20,10 +21,15 @@ public class JsoupExtractDataAction implements CrawlerAction<JsoupActionContext,
         var document = context.getDocument();
 
         if (Objects.nonNull(elementExtractor.getElementLocator())) {
-            var element = jsoupElementLocatorSelector.select(document, elementExtractor.getElementLocator())
+            var elementOpt = jsoupElementLocatorSelector.select(document, elementExtractor.getElementLocator())
                     .stream()
-                    .findFirst()
-                    .orElseThrow(() -> new ApplicationException("Element " + elementExtractor.getElementLocator().toString() + " not found"));
+                    .findFirst();
+
+            if (elementOpt.isEmpty() && elementExtractor.isIgnoreException()) {
+                return Collections.emptyList();
+            }
+
+            var element = elementOpt.orElseThrow(() -> new ApplicationException("Element " + elementExtractor.getElementLocator().toString() + " not found"));
 
             return jsoupExtractor.extract(element, elementExtractor.getExtractors());
         }
