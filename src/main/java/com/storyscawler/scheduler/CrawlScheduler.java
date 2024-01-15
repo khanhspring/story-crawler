@@ -24,7 +24,7 @@ public class CrawlScheduler {
     private final ScheduleProperties properties;
 
     @Scheduled(cron = "${app.schedules.jobs-creation.stories-crawling.cron}")
-    public void creatStoriesCrawlingJobs() {
+    public void createStoriesCrawlingJobs() {
         if (properties.getJobsCreation().getStoriesCrawling().isDisabled()) {
             return;
         }
@@ -40,7 +40,7 @@ public class CrawlScheduler {
     }
 
     @Scheduled(cron = "${app.schedules.jobs-creation.story-crawling.cron}")
-    public void creatStoryCrawlingJobs() {
+    public void createStoryCrawlingJobs() {
         if (properties.getJobsCreation().getStoryCrawling().isDisabled()) {
             return;
         }
@@ -56,7 +56,7 @@ public class CrawlScheduler {
     }
 
     @Scheduled(cron = "${app.schedules.jobs-creation.chapters-crawling.cron}")
-    public void creatChaptersCrawlingJobs() {
+    public void createChaptersCrawlingJobs() {
         if (properties.getJobsCreation().getChaptersCrawling().isDisabled()) {
             return;
         }
