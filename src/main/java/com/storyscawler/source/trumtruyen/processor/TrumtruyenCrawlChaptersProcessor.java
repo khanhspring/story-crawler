@@ -38,7 +38,7 @@ public class TrumtruyenCrawlChaptersProcessor implements CrawlChaptersProcessor 
     private final TrumtruyenContentFilters filters;
     private final TrumtruyenChapterTitleFilters titleFilters;
 
-    private static final Duration DELAY_BETWEEN_CHAPTERS = Duration.ofSeconds(1);
+    private static final Duration DELAY_BETWEEN_CHAPTERS = Duration.ofMillis(250);
 
     public void process(CrawlChaptersOption option, Function<ChapterResult, Boolean> doNext) {
         var future = executorPool.execute(() -> {
