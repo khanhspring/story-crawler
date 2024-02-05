@@ -68,7 +68,7 @@ public class CrawlChaptersJobExecutorImpl implements CrawlChaptersJobExecutor {
         crawlChaptersJobService.updateCurrentChapter(job.getId(), result.getChapterNumber(), result.getUrl());
         chapterNumber.set(result.getChapterNumber());
 
-        if (ObjectUtils.isEmpty(result.getTitle())) {
+        if (ObjectUtils.isEmpty(result.getContent())) {
             // do nothing
             return true;
         }
@@ -78,7 +78,8 @@ public class CrawlChaptersJobExecutorImpl implements CrawlChaptersJobExecutor {
             addChapter(result, job.getStory());
             return true;
         }
-        updateChapter(result, chapterOpt.get());
+        // TODO: do nothing
+        // updateChapter(result, chapterOpt.get());
         return true;
     }
 

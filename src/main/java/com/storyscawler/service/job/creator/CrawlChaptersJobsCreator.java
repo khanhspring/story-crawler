@@ -31,7 +31,7 @@ public class CrawlChaptersJobsCreator {
     @Transactional
     public void create() {
         log.info("Start create jobs to crawl chapters");
-        var page = PageRequest.of(0, 25);
+        var page = PageRequest.of(0, 100);
         var hasNext = false;
         var lastModifiedDate = Instant.now().minus(UPDATE_CHAPTERS_INTERVAL);
         do {
@@ -40,7 +40,7 @@ public class CrawlChaptersJobsCreator {
 
             var stories = results.getContent();
             createJobs(stories);
-            hasNext = results.hasContent();
+            hasNext = false;// TODO: results.hasContent();
         } while (hasNext);
     }
 
@@ -64,6 +64,7 @@ public class CrawlChaptersJobsCreator {
             startUrl = story.getExternalUrl() + "/chuong-" + startIndex;
         }
 
+        log.info("[{}] Crawl chapter: [{}]", story.getSource().getCode(), startUrl);
         var job = JpaCrawlChaptersJob.builder()
                 .story(story)
                 .status(Ready)
