@@ -104,6 +104,6 @@ public class TruyenfullCrawlStoryInfoProcessor implements CrawlStoryInfoProcesso
 
     @Override
     public boolean isSupported(SourceCode sourceCode) {
-        return sourceCode == SourceCode.Truyenfull;
+        return sourceCode == SourceCode.Truyenfull && false; // TODO: disable
     }
 }

@@ -88,6 +88,6 @@ public class TruyenfullCrawlChaptersProcessor implements CrawlChaptersProcessor 
 
     @Override
     public boolean isSupported(SourceCode sourceCode) {
-        return sourceCode == SourceCode.Truyenfull;
+        return sourceCode == SourceCode.Truyenfull && false; // TODO: disable
     }
 }

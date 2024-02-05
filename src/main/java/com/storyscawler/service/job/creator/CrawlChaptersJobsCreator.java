@@ -59,6 +59,11 @@ public class CrawlChaptersJobsCreator {
             startUrl = latestChapter.getExternalUrl();
         }
 
+        // FIXME: Fix for metruyencv only
+        if (Objects.isNull(startUrl)) {
+            startUrl = story.getExternalUrl() + "/chuong-" + startIndex;
+        }
+
         var job = JpaCrawlChaptersJob.builder()
                 .story(story)
                 .status(Ready)

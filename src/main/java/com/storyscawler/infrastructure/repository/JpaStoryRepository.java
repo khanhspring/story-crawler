@@ -24,6 +24,7 @@ public interface JpaStoryRepository extends JpaRepository<JpaStory, Long> {
             "   o.status in (com.storyscawler.infrastructure.model.enumeration.StoryStatus.Draft) " +
             "   or (o.completed = false and o.lastModifiedDate < :lastModifiedDate)" +
             " )" +
+            " and o.source.status = com.storyscawler.infrastructure.model.enumeration.SourceStatus.Active" +
             " order by o.createdDate asc")
     Slice<JpaStory> findStoriesWithoutActiveCrawlInfoJob(@Param("lastModifiedDate") Instant lastModifiedDate, Pageable pageable);
 
@@ -35,6 +36,7 @@ public interface JpaStoryRepository extends JpaRepository<JpaStory, Long> {
             "   o.status in (com.storyscawler.infrastructure.model.enumeration.StoryStatus.Draft) " +
             "   or (o.completed = false and o.lastModifiedDate < :lastModifiedDate)" +
             " )" +
+            " and o.source.status = com.storyscawler.infrastructure.model.enumeration.SourceStatus.Active" +
             " order by o.createdDate asc")
     Slice<JpaStory> findStoriesWithoutActiveCrawlChaptersJob(@Param("lastModifiedDate") Instant lastModifiedDate, Pageable pageable);
 

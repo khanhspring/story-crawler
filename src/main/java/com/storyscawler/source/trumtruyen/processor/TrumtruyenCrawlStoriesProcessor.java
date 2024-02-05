@@ -71,6 +71,6 @@ public class TrumtruyenCrawlStoriesProcessor implements CrawlStoriesProcessor {
 
     @Override
     public boolean isSupported(SourceCode sourceCode) {
-        return sourceCode == SourceCode.Trumtruyen;
+        return sourceCode == SourceCode.Trumtruyen && false; // TODO: disable
     }
 }
